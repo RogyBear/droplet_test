@@ -24,7 +24,15 @@ jobs:
       - name: SSH and Deploy
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
+            # Navigate to the deployment directory
             cd /var/www/droplet_test
-            docker-compose down
-            docker-compose up -d --build
+
+            # Optionally, set permissions for the web server
+            sudo chown -R www-data:www-data /var/www/droplet_test
+            sudo find /var/www/droplet_test -type d -exec chmod 755 {} \;
+            sudo find /var/www/droplet_test -type f -exec chmod 644 {} \;
+
+            # Any necessary post-deployment tasks, such as restarting the web server
+            sudo systemctl restart nginx
+
           EOF
