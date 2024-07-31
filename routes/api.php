@@ -8,6 +8,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get(function(){
+Route::get('/test', function(){
     return ['message'=> 'Test', 'status' => 200];
 });
