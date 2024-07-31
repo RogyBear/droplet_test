@@ -24,7 +24,7 @@ jobs:
       - name: SSH and Deploy
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} << 'EOF'
-            cd /path/to/your/app
+            cd /var/www/droplet_test
             docker-compose down
             docker-compose up -d --build
           EOF
